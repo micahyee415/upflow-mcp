@@ -1,0 +1,30 @@
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/upflow-mcp', '.']
+
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/upflow-mcp']
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'upflow-mcp'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/upflow-mcp'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - 'us-central1'
+      - '--allow-unauthenticated'
+      - '--set-secrets'
+      - 'UPFLOW_API_KEY=upflow-api-key:latest,UPFLOW_API_SECRET=upflow-api-secret:latest,GOOGLE_CLIENT_ID=UpFlow-OAuth-ID:latest,GOOGLE_CLIENT_SECRET=Upflow-OAuth-Secret:latest'
+      - '--port'
+      - '8080'
+
+images:
+  - 'gcr.io/$PROJECT_ID/upflow-mcp'
