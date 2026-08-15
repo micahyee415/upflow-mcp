@@ -1,3 +1,5 @@
+> **📦 Archived reference implementation** — built 2025–2026 while running IT solo at an HR-tech SaaS. Kept as a portfolio piece; dependencies are frozen as of archiving (August 2026). More projects: [github.com/micahyee415](https://github.com/micahyee415).
+
 # upflow-mcp-server
 
 > A [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server for the [Upflow](https://upflow.io) accounts-receivable API — invoices, payments, customers, and finance tooling.
